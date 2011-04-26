@@ -66,14 +66,16 @@
 		var fragment = document.createDocumentFragment(), element, length = template.length;
 		while(i < length){
 			element = template[i++];
-			if (element !== null && element !== undefined) {
+			if (element !== null && element !== 'undefined') {
 				fragment.appendChild(isArray(element) ? haj(element, exports) : document.createTextNode(element));
 			}
 		}
 		return fragment;
 	}
 	window.haj = haj;
-	$.fn.haj = function(template){
-		this.append(haj(template));
+	if (typeof jQuery !== 'undefined') {
+		jQuery.fn.haj = function(template){
+			this.append(haj(template));
+		}
 	}
 })();
