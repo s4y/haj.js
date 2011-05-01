@@ -58,7 +58,11 @@
 				delete attributes.$async;
 			}
 			for (var key in attributes) {
-				node.setAttribute(key, attributes[key]);
+				if (key === 'class') {
+					node.className = attributes[key];
+				} else {
+					node.setAttribute(key, attributes[key]);
+				}
 			}
 		} else {
 			node = document.createDocumentFragment();
