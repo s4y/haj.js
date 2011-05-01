@@ -13,8 +13,8 @@
 	var isArray = Array.isArray || function(array){
 		return array && (array instanceof Array) || toString.call(array) === '[object Array]';
 	}
-	function haj(template, exports, flags){
-		var i = (flags && flags.start || 0), selector = template[0];
+	function haj(template, exports){
+		var i = 0, selector = template[0];
 		if (i === 0 && typeof selector === 'string' && selector.charAt(0) in selectorChars && selector.length > 1) {
 			var tagName = 'div', attributes = {}, match;
 			i++;
@@ -60,17 +60,17 @@
 			for (var key in attributes) {
 				node.setAttribute(key, attributes[key]);
 			}
-			node.appendChild(haj(template, exports, { start: i }));
-			return node;
+		} else {
+			node = document.createDocumentFragment();
 		}
-		var fragment = document.createDocumentFragment(), element, length = template.length;
+		var element, length = template.length;
 		while(i < length){
 			element = template[i++];
 			if (element !== null && element !== 'undefined') {
-				fragment.appendChild(isArray(element) ? haj(element, exports) : document.createTextNode(element));
+				node.appendChild(isArray(element) ? haj(element, exports) : document.createTextNode(element));
 			}
 		}
-		return fragment;
+		return node;
 	}
 	window.haj = haj;
 	if (typeof jQuery !== 'undefined') {
