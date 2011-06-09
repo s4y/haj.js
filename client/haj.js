@@ -71,7 +71,7 @@
 		while(i < length){
 			element = template[i++];
 			if (element !== null && element !== undefined) {
-				node.appendChild(isArray(element) ? haj(element, exports) : document.createTextNode(element));
+				node.appendChild(isArray(element) ? haj(element, exports) : element.nodeType ? element : document.createTextNode(element));
 			}
 		}
 		return node;
