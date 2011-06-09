@@ -1,4 +1,4 @@
-(function(){
+(function(undefined){
 	var selectorChars = { '%': true, '#': true, '.': true },
 		selectorRegExp = /([%#.])([^%#.]+)/g,
 		toString = Object.prototype.toString;
@@ -70,7 +70,7 @@
 		var element, length = template.length;
 		while(i < length){
 			element = template[i++];
-			if (element !== null && element !== 'undefined') {
+			if (element !== null && element !== undefined) {
 				node.appendChild(isArray(element) ? haj(element, exports) : document.createTextNode(element));
 			}
 		}
